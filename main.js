@@ -16,15 +16,18 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
 
   // Each actor can attack a target
   function attack(attackTarget) {
+    alert("attack() is starting");
     // retrieving stat scores
     var attackScore = this.strength;
     var defenseScore = attackTarget.defense;
+    alert("strength of attack is " + attackScore + " and defense is " + defenseScore);
     // calculating damage of attack
-    var diceRoll = (Math.random() * 20);
-    diceRoll = Math.round(diceRoll * (attackScore / defenseScore));
+    var diceResult = (Math.random() * 20);
+    diceResult = Math.round(diceResult * (attackScore / defenseScore));
+    alert("Damage dice roll is " + diceResult);
     // deduct hitpoints from target
-    attackTarget.hitpoints = attackTarget.hitpoints - diceRoll;
-    alert(attackTarget.fullName + " has been damaged for " + diceRoll + " damage!");
+    attackTarget.hitpoints = attackTarget.hitpoints - diceResult;
+    alert(attackTarget.fullName + " has been damaged for " + diceResult + " damage!");
   }
 
   // A rest action
@@ -47,6 +50,7 @@ function startGame() {
 
 // A full attack round
 function attackCycle(opponentOne, opponentTwo){
+  alert("attackCycle() starting, opponentOne is " + opponentOne.fullName + " and opponentTwo is " + opponentTwo.fullName);
   // call attack function from opponentOne on opponentTwo
   opponentOne.attack(opponentTwo);
   // Check if opponentTwo has been killed
