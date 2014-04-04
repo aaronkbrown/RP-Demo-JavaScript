@@ -24,6 +24,7 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
     diceRoll = Math.round(diceRoll * (attackScore / defenseScore));
     // deduct hitpoints from target
     attackTarget.hitpoints = attackTarget.hitpoints - diceRoll;
+    alert(attackTarget.fullName + " has been damaged for " + diceRoll + " damage!");
   }
 
   // A rest action
@@ -33,10 +34,13 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
   }
 }
 
+// Initialize monster character as an actor object
+monsterCharacter = new actor("", 0, 0, 0, 0);
+
 // Start on the path of a new adventure, create new player character
 function startGame() {
   // Ask for player's character name
-  string sName = prompt("What is your name?");
+  var sName = prompt("What is your name?");
   // global playerCharacter is a new actor object
   playerCharacter = new actor(sName, 50, 50, 15, 15);
 }
@@ -61,6 +65,10 @@ function attackCycle(opponentOne, opponentTwo){
       return;
     }
   }
+}
+
+function attackButton(){
+  attackCycle(playerCharacter, monsterCharacter);
 }
 
 // A simplified dice rolling function
@@ -119,6 +127,10 @@ function createNewMonster(){
   monsterCharacter.maxhitpoints = 40;
   monsterCharacter.strength = diceRoll(3, 6);
   monsterCharacter.defense = diceRoll(3, 6);
-  alert("You have encountered " + monsterCharacter.sArticle + monsterCharacter.fullName + "!");
+  alert("You have encountered " + monsterCharacter.sArticle + " " + monsterCharacter.fullName + "!");
+}
+
+function lookForFight(){
+  createNewMonster();
 }
 
