@@ -46,6 +46,7 @@ function startGame() {
   var sName = prompt("What is your name?");
   // global playerCharacter is a new actor object
   playerCharacter = new actor(sName, 50, 50, 15, 15);
+  /** alert(playerCharacter.fullName + " " + playerCharacter.hitpoints + " " + playerCharacter.strength + " " + playerCharacter.defense); */
 }
 
 // A full attack round
