@@ -1,5 +1,7 @@
 
 
+/** ===== SIMPLE FUNCTIONS USED EVERYWHERE ===== */
+
 // A simplified dice rolling function
 function diceRoll(nRolled, nSides){
   var nReturn = 0;
@@ -36,7 +38,8 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
     var defenseScore = attackTarget.defense;
     alert("strength of attack is " + attackScore + " and defense is " + defenseScore);
     // calculating damage of attack
-    var diceResult = (Math.random() * 20);
+    //var diceResult = (Math.random() * 20);
+    var diceResult = diceRoll(1, 20);
     diceResult = Math.round(diceResult * (attackScore / defenseScore));
     alert("Damage dice roll is " + diceResult);
     // deduct hitpoints from target
@@ -45,7 +48,7 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
   }
 
   // A rest action
-  this.restAndRestore = function() {
+  this.rejuvenate = function() {
     // Restore hitpoints
     this.hitpoints = maxhitpoints;
   }
@@ -67,7 +70,8 @@ monsterCharacter = new actor("", 0, 0, 0, 0);
 function monsterNameGenerate(){
   var sMonsterName;
   // Randomizer, 5 possibilities
-  var nNameChance = Math.ceil(Math.random() * 5);
+  var nNameChance = diceRoll(1, 5);
+  //var nNameChance = Math.ceil(Math.random() * 5);
   if (nNameChance === 1) {
     sMonsterName = "Goblin";
     monsterCharacter.sArticle = "a";
@@ -156,5 +160,10 @@ function lookForFight(){
 // One round of combat
 function attackButton(){
   attackCycle(playerCharacter, monsterCharacter);
+}
+
+// Find an inn and restore HP to full
+function restAndRestore(){
+  playerCharacter.rejuvenate();
 }
 
