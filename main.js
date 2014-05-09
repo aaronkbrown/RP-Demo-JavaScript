@@ -15,7 +15,7 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
   this.defense = defense;
 
   // Each actor can attack a target
-  function attack(attackTarget) {
+  this.attack = function(attackTarget) {
     alert("attack() is starting");
     // retrieving stat scores
     var attackScore = this.strength;
@@ -31,22 +31,31 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
   }
 
   // A rest action
-  function restAndRestore() {
+  this.restAndRestore = function() {
     // Restore hitpoints
     this.hitpoints = maxhitpoints;
   }
 }
 
+
+
 // Initialize monster character as an actor object
 monsterCharacter = new actor("", 0, 0, 0, 0);
 
-// Start on the path of a new adventure, create new player character
-function startGame() {
-  // Ask for player's character name
-  var sName = prompt("What is your name?");
-  // global playerCharacter is a new actor object
-  playerCharacter = new actor(sName, 50, 50, 15, 15);
-  /** alert(playerCharacter.fullName + " " + playerCharacter.hitpoints + " " + playerCharacter.strength + " " + playerCharacter.defense); */
+
+
+// Check if target is dead
+function getIsDead(deadTarget) {
+  // retrieve current hitpoints of target
+  var hpLeft = deadTarget.hitpoints;
+  // check if current hitpoints are in the positive
+  if(hpLeft > 0) {
+    // Still got a pulse!
+    return false;
+  } else {
+    // Deader than disco
+    return true;
+  }
 }
 
 // A full attack round
@@ -72,9 +81,7 @@ function attackCycle(opponentOne, opponentTwo){
   }
 }
 
-function attackButton(){
-  attackCycle(playerCharacter, monsterCharacter);
-}
+
 
 // A simplified dice rolling function
 function diceRoll(nRolled, nSides){
@@ -85,20 +92,6 @@ function diceRoll(nRolled, nSides){
   return nReturn;
 }
 
-
-// Check if target is dead
-function getIsDead(deadTarget) {
-  // retrieve current hitpoints of target
-  var hpLeft = deadTarget.hitpoints;
-  // check if hit current hitpoints are in the positive
-  if(hpLeft > 0) {
-    // Still got a pulse!
-    return false;
-  } else {
-    // Deader than disco
-    return true;
-  }
-}
 
 // Randomly generate a monster type by name
 function monsterNameGenerate(){
@@ -135,7 +128,22 @@ function createNewMonster(){
   alert("You have encountered " + monsterCharacter.sArticle + " " + monsterCharacter.fullName + "!");
 }
 
+/** ===== BUTTON PUSHING GOES HERE ===== */
+
+// Start on the path of a new adventure, create new player character
+function startGame() {
+  // Ask for player's character name
+  var sName = prompt("What is your name?");
+  // global playerCharacter is a new actor object
+  playerCharacter = new actor(sName, 50, 50, 15, 15);
+  /** alert(playerCharacter.fullName + " " + playerCharacter.hitpoints + " " + playerCharacter.strength + " " + playerCharacter.defense); */
+}
+
 function lookForFight(){
   createNewMonster();
+}
+
+function attackButton(){
+  attackCycle(playerCharacter, monsterCharacter);
 }
 
