@@ -2,16 +2,64 @@
 html, body {
   padding:0;
   margin:0;
-  background-color:gray;
+  background-color:#ffffff;
 }
 
 main {
+  margin:0 auto;
   text-align:center;
+  height:100%;
+  width: 920px;
+  padding-top:270px;
+  background-color:#ffffff;
 }
 
 input[type=button] {
-  background-color:salmon;
-  border-color:red;
+  background-color:#45d020;
+  border-color:#30a010;
+  display: block;
+  margin-left:auto;
+  margin-right: auto;
+  width: 200px;
 }
 
+#newGame {
 
+}
+
+#lookForFight {
+
+}
+
+#attackButton {
+
+}
+
+#rest {
+
+}
+
+/* Media queries */
+@media only screen and (min-width: 960px) {
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  main {
+    width: 740px;
+    padding-top: 210px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  main {
+    width: 460px;
+    padding-top:150px;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  main {
+    width: 300px;
+    padding-top:100px;
+  }
+}
