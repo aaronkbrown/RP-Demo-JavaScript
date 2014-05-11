@@ -1,0 +1,17 @@
+
+html, body {
+  padding:0;
+  margin:0;
+  background-color:gray;
+}
+
+main {
+  text-align:center;
+}
+
+input[type=button] {
+  background-color:salmon;
+  border-color:red;
+}
+
+
