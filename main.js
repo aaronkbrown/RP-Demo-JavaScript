@@ -11,6 +11,14 @@ function diceRoll(nRolled, nSides){
   return nReturn;
 }
 
+/** ===== DOM OBJECTS USED REPEATEDLY ===== */
+
+var buttonFight = document.getElementById("lookForFight");
+
+var buttonAttack = document.getElementById("attackButton");
+
+var buttonRest = document.getElementById("rest");
+
 
 
 /** ===== ACTOR OBJECTS AND FUNCTIONALITY ===== */
@@ -129,6 +137,10 @@ function attackCycle(opponentOne, opponentTwo){
   if(getIsDead(opponentTwo)){
     // If successfully killed
     alert("You have slain " + opponentTwo.fullName);
+    // Make explore and rest buttons appear again, attack button disappear
+    buttonFight.style.display = "block";
+    buttonRest.style.display = "block";
+    buttonAttack.style.display = "none";
     return;
   } else {
     // Otherwise, it is opponentTwo's turn to retaliate
@@ -136,6 +148,10 @@ function attackCycle(opponentOne, opponentTwo){
     // Check if opponentTwo has killed opponentOne
     if(getIsDead(opponentOne)){
       alert(opponentTwo.fullName + " has killed you! GAME OVER");
+      // Yer dead, can only start a new game, all other buttons disappear
+      buttonFight.style.display = "none";
+      buttonRest.style.display = "none";
+      buttonAttack.style.display = "none";
       return;
     } else {
       return;
@@ -148,13 +164,21 @@ function attackCycle(opponentOne, opponentTwo){
 /** ===== BUTTON PUSHING HOOKS GOES HERE ===== */
 
 // Start on the path of a new adventure, create new player character
+// Make sure the correct buttons are displaying
 function startGame(){
   createPC();
+  buttonFight.style.display = "block";
+  buttonAttack.style.display = "none";
+  buttonRest.style.display = "block";
 }
 
 // Create a monster to fight, enter combat
+// Make sure the correct buttons are displaying
 function lookForFight(){
   createNewMonster();
+  buttonFight.style.display = "none";
+  buttonAttack.style.display = "block";
+  buttonRest.style.display = "none";
 }
 
 // One round of combat

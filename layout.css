@@ -28,15 +28,15 @@ input[type=button] {
 }
 
 #lookForFight {
-
+  display:none;
 }
 
 #attackButton {
-
+  display:none;
 }
 
 #rest {
-
+  display:none;
 }
 
 /* Media queries */
