@@ -86,22 +86,27 @@ function monsterNameGenerate(){
     sMonsterName = "Goblin";
     monsterCharacter.sArticle = "a";
     mainPic.src = "images/goblin.jpg";
+    mainPic.alt = "A picture of a goblin";
   } else if (nNameChance === 2){
     sMonsterName = "Orc";
     monsterCharacter.sArticle = "an";
     mainPic.src = "images/orc.png";
+    mainPic.alt = "A picture of an orc";
   } else if (nNameChance === 3){
     sMonsterName = "Kobold";
     monsterCharacter.sArticle = "a";
     mainPic.src = "images/kobold.jpg";
+    mainPic.alt = "A picture of a kobold";
   } else if (nNameChance === 4){
     sMonsterName = "Gnoll";
     monsterCharacter.sArticle = "a";
     mainPic.src = "images/gnoll.jpg";
+    mainPic.alt = "A picture of a gnoll";
   } else {
     sMonsterName = "Ogre";
     monsterCharacter.sArticle = "an";
     mainPic.src = "images/ogre.jpg";
+    mainPic.alt = "A picture of an ogre";
   }
   // Return the string
   return sMonsterName;
@@ -149,6 +154,7 @@ function attackCycle(opponentOne, opponentTwo){
     buttonRest.style.display = "block";
     buttonAttack.style.display = "none";
     mainPic.src = "images/moor.jpg";
+    mainPic.alt = "A picture of wilderness";
     return;
   } else {
     // Otherwise, it is opponentTwo's turn to retaliate
@@ -161,6 +167,7 @@ function attackCycle(opponentOne, opponentTwo){
       buttonRest.style.display = "none";
       buttonAttack.style.display = "none";
       mainPic.src = "images/moor.jpg";
+      mainPic.alt = "A picture of wilderness";
       return;
     } else {
       return;
@@ -176,6 +183,7 @@ function attackCycle(opponentOne, opponentTwo){
 // Make sure the correct buttons are displaying
 function startGame(){
   mainPic.src = "images/moor.jpg";
+  mainPic.alt = "A picture of wilderness";
   createPC();
   buttonFight.style.display = "block";
   buttonAttack.style.display = "none";
