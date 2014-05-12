@@ -10,8 +10,24 @@ main {
   text-align:center;
   height:100%;
   width: 920px;
-  padding-top:270px;
+  padding-top:150px;
   background-color:#ffffff;
+}
+
+figure {
+  display: block;
+}
+
+.gameField {
+  border: 3px solid green;
+  min-height: 300px;
+  max-width: 600px;
+  margin:0 auto;
+}
+
+#mainPic {
+  width: 300px;
+  height: 300px;
 }
 
 input[type=button] {
@@ -46,20 +62,25 @@ input[type=button] {
 @media only screen and (min-width: 768px) and (max-width: 959px) {
   main {
     width: 740px;
-    padding-top: 210px;
+    padding-top: 100px;
   }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
   main {
     width: 460px;
-    padding-top:150px;
+    padding-top:50px;
   }
 }
 
 @media only screen and (max-width: 479px) {
   main {
     width: 300px;
-    padding-top:100px;
+    padding-top:20px;
+  }
+
+  #mainPic {
+    width: 200px;
+    height: 200px;
   }
 }

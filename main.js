@@ -19,6 +19,8 @@ var buttonAttack = document.getElementById("attackButton");
 
 var buttonRest = document.getElementById("rest");
 
+var mainPic = document.getElementById("mainPic");
+
 
 
 /** ===== ACTOR OBJECTS AND FUNCTIONALITY ===== */
@@ -83,18 +85,23 @@ function monsterNameGenerate(){
   if (nNameChance === 1) {
     sMonsterName = "Goblin";
     monsterCharacter.sArticle = "a";
+    mainPic.src = "images/goblin.jpg";
   } else if (nNameChance === 2){
     sMonsterName = "Orc";
     monsterCharacter.sArticle = "an";
+    mainPic.src = "images/orc.png";
   } else if (nNameChance === 3){
     sMonsterName = "Kobold";
     monsterCharacter.sArticle = "a";
+    mainPic.src = "images/kobold.jpg";
   } else if (nNameChance === 4){
     sMonsterName = "Gnoll";
     monsterCharacter.sArticle = "a";
+    mainPic.src = "images/gnoll.jpg";
   } else {
     sMonsterName = "Ogre";
     monsterCharacter.sArticle = "an";
+    mainPic.src = "images/ogre.jpg";
   }
   // Return the string
   return sMonsterName;
@@ -141,6 +148,7 @@ function attackCycle(opponentOne, opponentTwo){
     buttonFight.style.display = "block";
     buttonRest.style.display = "block";
     buttonAttack.style.display = "none";
+    mainPic.src = "images/moor.jpg";
     return;
   } else {
     // Otherwise, it is opponentTwo's turn to retaliate
@@ -152,6 +160,7 @@ function attackCycle(opponentOne, opponentTwo){
       buttonFight.style.display = "none";
       buttonRest.style.display = "none";
       buttonAttack.style.display = "none";
+      mainPic.src = "images/moor.jpg";
       return;
     } else {
       return;
@@ -166,6 +175,7 @@ function attackCycle(opponentOne, opponentTwo){
 // Start on the path of a new adventure, create new player character
 // Make sure the correct buttons are displaying
 function startGame(){
+  mainPic.src = "images/moor.jpg";
   createPC();
   buttonFight.style.display = "block";
   buttonAttack.style.display = "none";
