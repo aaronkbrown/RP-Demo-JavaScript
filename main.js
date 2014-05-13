@@ -1,4 +1,11 @@
 
+/** ===== GLOBAL VARIABLES ===== */
+
+var nKillCount = 0;
+
+var nHitPoints = 0;
+
+
 
 /** ===== SIMPLE FUNCTIONS USED EVERYWHERE ===== */
 
@@ -10,6 +17,16 @@ function diceRoll(nRolled, nSides){
   }
   return nReturn;
 }
+
+// A function for updating notification text
+//function notifySpan(spanId, messageText){
+  //var spanBlock = document.getElementById(spanId);
+  //spanBlock.text(messageText);
+  //spanBlock.innerHTML = '';
+  //spanBlock.appendChild(document.createTextNode(messageText));
+//}
+
+
 
 /** ===== DOM OBJECTS USED REPEATEDLY ===== */
 
@@ -71,6 +88,7 @@ function createPC() {
   // global playerCharacter is a new actor object
   playerCharacter = new actor(sName, 50, 50, 15, 15);
   /** alert(playerCharacter.fullName + " " + playerCharacter.hitpoints + " " + playerCharacter.strength + " " + playerCharacter.defense); */
+  nHitPoints = 50;
 }
 
 // Initialize monster character as an actor object
@@ -153,12 +171,19 @@ function attackCycle(opponentOne, opponentTwo){
     buttonFight.style.display = "block";
     buttonRest.style.display = "block";
     buttonAttack.style.display = "none";
+    // Update kill count global variable and notify player
+    nKillCount++;
+    //notifySpan("killCount", "Kills: " + nKillCount);
+    $('#killCount').text("Kills: " + nKillCount);
     mainPic.src = "images/moor.jpg";
     mainPic.alt = "A picture of wilderness";
     return;
   } else {
     // Otherwise, it is opponentTwo's turn to retaliate
     opponentTwo.attack(opponentOne);
+    // Get current HP of player after getting hit, display total in span
+    nHitPoints = playerCharacter.hitpoints;
+    $('#currentHealth').text("HP: " + nHitPoints);
     // Check if opponentTwo has killed opponentOne
     if(getIsDead(opponentOne)){
       alert(opponentTwo.fullName + " has killed you! GAME OVER");
@@ -188,6 +213,7 @@ function startGame(){
   buttonFight.style.display = "block";
   buttonAttack.style.display = "none";
   buttonRest.style.display = "block";
+  $('#currentHealth').text("HP: " + nHitPoints);
 }
 
 // Create a monster to fight, enter combat
@@ -207,5 +233,7 @@ function attackButton(){
 // Find an inn and restore HP to full
 function restAndRestore(){
   playerCharacter.rejuvenate();
+  nHitPoints = playerCharacter.hitpoints;
+  $('#currentHealth').text("HP: " + nHitPoints);
 }
 
