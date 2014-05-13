@@ -214,6 +214,8 @@ function startGame(){
   buttonAttack.style.display = "none";
   buttonRest.style.display = "block";
   $('#currentHealth').text("HP: " + nHitPoints);
+  nKillCount = 0;
+  $('#killCount').text("Kills: " + nKillCount);
 }
 
 // Create a monster to fight, enter combat
