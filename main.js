@@ -5,6 +5,10 @@ var nKillCount = 0;
 
 var nHitPoints = 0;
 
+var sFeedback = "";
+
+var damageRoll = 0;
+
 
 
 /** ===== SIMPLE FUNCTIONS USED EVERYWHERE ===== */
@@ -59,19 +63,21 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
 
   // Each actor can attack a target
   this.attack = function(attackTarget) {
-    alert("attack() is starting");
+    // alert("attack() is starting");
     // retrieving stat scores
     var attackScore = this.strength;
     var defenseScore = attackTarget.defense;
-    alert("strength of attack is " + attackScore + " and defense is " + defenseScore);
+    // alert("strength of attack is " + attackScore + " and defense is " + defenseScore);
     // calculating damage of attack
     //var diceResult = (Math.random() * 20);
     var diceResult = diceRoll(1, 20);
     diceResult = Math.round(diceResult * (attackScore / defenseScore));
-    alert("Damage dice roll is " + diceResult);
+    // alert("Damage dice roll is " + diceResult);
+    // Track damage result in global variable for feedback tracking
+    damageRoll = diceResult;
     // deduct hitpoints from target
     attackTarget.hitpoints = attackTarget.hitpoints - diceResult;
-    alert(attackTarget.fullName + " has been damaged for " + diceResult + " damage!");
+    // alert(attackTarget.fullName + " has been damaged for " + diceResult + " damage!");
   }
 
   // A rest action
@@ -137,7 +143,8 @@ function createNewMonster(){
   monsterCharacter.maxhitpoints = 40;
   monsterCharacter.strength = diceRoll(3, 6);
   monsterCharacter.defense = diceRoll(3, 6);
-  alert("You have encountered " + monsterCharacter.sArticle + " " + monsterCharacter.fullName + "!");
+  // alert("You have encountered " + monsterCharacter.sArticle + " " + monsterCharacter.fullName + "!");
+  $('#feedback').text("You have encounted " + monsterCharacter.sArticle + " "  + monsterCharacter.fullName + "!");
 }
 
 
@@ -160,13 +167,19 @@ function getIsDead(deadTarget) {
 
 // A full attack round
 function attackCycle(opponentOne, opponentTwo){
-  alert("attackCycle() starting, opponentOne is " + opponentOne.fullName + " and opponentTwo is " + opponentTwo.fullName);
+  // alert("attackCycle() starting, opponentOne is " + opponentOne.fullName + " and opponentTwo is " + opponentTwo.fullName);
+  // For feedback tracking purposes, we create two variables for recording damage
+  var nPCDam = 0;
+  var nMonDam = 0;
   // call attack function from opponentOne on opponentTwo
   opponentOne.attack(opponentTwo);
   // Check if opponentTwo has been killed
+  nPCDam = damageRoll;
   if(getIsDead(opponentTwo)){
     // If successfully killed
-    alert("You have slain " + opponentTwo.fullName);
+    // alert("You have slain " + opponentTwo.fullName);
+    // Feedback
+    $('#feedback').text("You have damaged " + opponentTwo.fullName + " for " + nPCDam + " hitpoints, " + opponentTwo.fullName + " has been slain");
     // Make explore and rest buttons appear again, attack button disappear
     buttonFight.style.display = "block";
     buttonRest.style.display = "block";
@@ -181,12 +194,15 @@ function attackCycle(opponentOne, opponentTwo){
   } else {
     // Otherwise, it is opponentTwo's turn to retaliate
     opponentTwo.attack(opponentOne);
+    nMonDam = damageRoll;
     // Get current HP of player after getting hit, display total in span
     nHitPoints = playerCharacter.hitpoints;
     $('#currentHealth').text("HP: " + nHitPoints);
     // Check if opponentTwo has killed opponentOne
     if(getIsDead(opponentOne)){
-      alert(opponentTwo.fullName + " has killed you! GAME OVER");
+      // alert(opponentTwo.fullName + " has killed you! GAME OVER");
+      // Feedback
+      $('#feedback').text("You have damaged " + opponentTwo.fullName + " for " + nPCDam + " hitpoints, " + opponentTwo.fullName + " has damaged " + opponentOne.fullName + " for " + nMonDam + " hitpoints. " + opponentTwo.fullName + " has killed you! GAME OVER");
       // Yer dead, can only start a new game, all other buttons disappear
       buttonFight.style.display = "none";
       buttonRest.style.display = "none";
@@ -195,6 +211,7 @@ function attackCycle(opponentOne, opponentTwo){
       mainPic.alt = "A picture of wilderness";
       return;
     } else {
+      $('#feedback').text("You have damaged " + opponentTwo.fullName + " for " + nPCDam + " hitpoints, " + opponentTwo.fullName + " has damaged " + opponentOne.fullName + " for " + nMonDam + " hitpoints.");
       return;
     }
   }
@@ -216,6 +233,7 @@ function startGame(){
   $('#currentHealth').text("HP: " + nHitPoints);
   nKillCount = 0;
   $('#killCount').text("Kills: " + nKillCount);
+  $('#feedback').text("-");
 }
 
 // Create a monster to fight, enter combat
@@ -237,5 +255,6 @@ function restAndRestore(){
   playerCharacter.rejuvenate();
   nHitPoints = playerCharacter.hitpoints;
   $('#currentHealth').text("HP: " + nHitPoints);
+  $('#feedback').text("Your hitpoints have been restored after a full night of rest.");
 }
 
