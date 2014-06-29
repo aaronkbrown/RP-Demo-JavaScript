@@ -99,20 +99,21 @@ input[type=button] {
 
 @media only screen and (max-width: 479px) {
   main {
-    width: 300px;
+    width: 95%;
     padding-top:20px;
   }
 
   #mainPic {
-    width: 200px;
-    height: 200px;
+    width: 240px;
+    height: 240px;
+    /* height: 200px; */
   }
 
   #feedback {
-    width: 200px;
+    width: 240px;
   }
 
   .statBar span {
-    width: 200px;
+    width: 240px;
   }
 }

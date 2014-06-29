@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>A JavaScript demonstration</title>
+    <meta name="viewport", content="width=device-width, initial-scale=1.0, minimum-scale=0.5 maximum-scale=1.0 minimal-ui">
     <link rel="stylesheet" href="layout.css">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"></script>
   </head>
@@ -11,11 +12,11 @@
     <main>
       <div class="gameField">
         <input id="newGame" type="button" value="Start New Game" onclick="startGame();">
+        <div class="statBar">
+          <span id="currentHealth">-</span>
+          <span id="killCount">-</span>
+        </div>
         <figure>
-          <div class="statBar">
-            <span id="currentHealth">-</span>
-            <span id="killCount">-</span>
-          </div>
           <img id="mainPic" src="images/moor.jpg" alt="A picture of wilderness">
         </figure>
         <span id="feedback">-</span>
