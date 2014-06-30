@@ -9,8 +9,8 @@ main {
   margin:0 auto;
   text-align:center;
   height:100%;
-  width: 920px;
-  padding-top:150px;
+  width: 460px;
+  padding-top:100px;
   background-color:#ffffff;
 }
 
@@ -85,7 +85,7 @@ input[type=button] {
 
 @media only screen and (min-width: 768px) and (max-width: 959px) {
   main {
-    width: 740px;
+    width: 460px;
     padding-top: 100px;
   }
 }
