@@ -10,19 +10,23 @@ main {
   text-align:center;
   height:100%;
   width: 460px;
-  padding-top:100px;
+  padding-top:50px;
   background-color:#ffffff;
 }
 
 figure {
   display: block;
+  margin: 1em auto;
 }
 
 .gameField {
-  border: 3px solid green;
-  min-height: 300px;
+  /* border: 3px solid green; */
+  background-image:url('images/papertexture.jpg');
+  background-size: 100% 100%;
+  height: 540px;
   max-width: 600px;
   margin:0 auto;
+  padding: 1em;
 }
 
 .statBar {
@@ -37,6 +41,7 @@ figure {
   text-align:right;
   margin: 0.5em auto;
   padding: 0.2em;
+  box-shadow: 0 3px 3px #666666;
 }
 
 #feedback {
@@ -44,9 +49,12 @@ figure {
   background-color: #b0b0b0;
   color:black;
   width: 300px;
+  height: 3em;
   text-align:left;
   margin: 0.5em auto;
   padding: 0.2em;
+  overflow-y: scroll;
+  box-shadow: 0 3px 3px #666666;
 }
 
 #mainPic {
@@ -55,8 +63,12 @@ figure {
 }
 
 input[type=button] {
-  background-color:#45d020;
+  /* background-color:#45d020; */
   border-color:#30a010;
+  background: -webkit-linear-gradient(left, #55e020, #38a018);
+  background: -o-linear-gradient(right, #55e020, #38a018);
+  background: -moz-linear-gradient(right, #55e020, #38a018);
+  background: -linear-gradient(to right, #55e020, #38a018);
   display: block;
   margin-left:auto;
   margin-right: auto;
@@ -86,7 +98,7 @@ input[type=button] {
 @media only screen and (min-width: 768px) and (max-width: 959px) {
   main {
     width: 460px;
-    padding-top: 100px;
+    padding-top: 50px;
   }
 }
 
@@ -100,20 +112,24 @@ input[type=button] {
 @media only screen and (max-width: 479px) {
   main {
     width: 95%;
-    padding-top:20px;
+    padding-top:10px;
   }
 
   #mainPic {
-    width: 240px;
-    height: 240px;
+    width: 220px;
+    height: 220px;
     /* height: 200px; */
   }
 
   #feedback {
-    width: 240px;
+    width: 220px;
   }
 
   .statBar span {
-    width: 240px;
+    width: 220px;
+  }
+
+  .gameField {
+    height: 460px;
   }
 }
