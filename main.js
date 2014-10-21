@@ -65,21 +65,17 @@ function actor(fullName, hitpoints, maxhitpoints, strength, defense) {
 
   // Each actor can attack a target
   this.attack = function(attackTarget) {
-    // alert("attack() is starting");
     // retrieving stat scores
     var attackScore = this.strength;
     var defenseScore = attackTarget.defense;
-    // alert("strength of attack is " + attackScore + " and defense is " + defenseScore);
     // calculating damage of attack
     //var diceResult = (Math.random() * 20);
     var diceResult = diceRoll(1, 20);
     diceResult = Math.round(diceResult * (attackScore / defenseScore));
-    // alert("Damage dice roll is " + diceResult);
     // Track damage result in global variable for feedback tracking
     damageRoll = diceResult;
     // deduct hitpoints from target
     attackTarget.hitpoints = attackTarget.hitpoints - diceResult;
-    // alert(attackTarget.fullName + " has been damaged for " + diceResult + " damage!");
   }
 
   // A rest action
@@ -95,15 +91,15 @@ function createPC() {
   var sName = prompt("What is your name?");
   // global playerCharacter is a new actor object
   playerCharacter = new actor(sName, 50, 50, 15, 15);
-  /** alert(playerCharacter.fullName + " " + playerCharacter.hitpoints + " " + playerCharacter.strength + " " + playerCharacter.defense); */
   nHitPoints = 50;
 }
 
 // Initialize monster character as an actor object
 monsterCharacter = new actor("", 0, 0, 0, 0);
 
+/** THIS FUNCTION DOES NOT GET CALLED ANYMORE. It is bad practice to maintain data in the functionality layer; monster data has been migrated to an external JSON file that gets called with a different function, seen in the current createNewMonster(). This function here was originally made while hosting static files without support for AJAX get requests but is unnecessary at this point */
 // Randomly generate a monster type by name
-function monsterNameGenerate(){
+/** function monsterNameGenerate(){
   var sMonsterName;
   // Randomizer, 5 possibilities
   var nNameChance = diceRoll(1, 5);
@@ -136,33 +132,43 @@ function monsterNameGenerate(){
   }
   // Return the string
   return sMonsterName;
-}
+} */
 
 // Random generation of monster from monster list in JSON file
 // JSON file location is defined above in global variables at top
-function monsterNameGenerator(){
-  var sMonsterName;
+function createNewMonster(){
   $.getJSON(sJsonPath, function(data){
+    // Get size of enemies[] array in JSON file
     var nMonsterListSize = data.enemies.length;
+    // Randomly pick monster entry in JSON file
     var nMonsterIndex = diceRoll(1, nMonsterListSize) - 1;
-    sMonsterName = data.enemies[nMonsterIndex].monsterName;
-    monsterCharacter.sArticle = data.enemies[nMonsterIndex].monsterArticle;
-    mainPic.src = data.enemies[nMonsterIndex].picSrc;
-    mainPic.alt = data.enemies[nMonsterIndex].picAlt;
+    // Save keystrokes
+    var oMonster = data.enemies[nMonsterIndex];
+    // Set monster object properties and image references
+    monsterCharacter.fullName = oMonster.monsterName;
+    monsterCharacter.sArticle = oMonster.monsterArticle;
+    mainPic.src = oMonster.picSrc;
+    mainPic.alt = oMonster.picAlt;
+    monsterCharacter.hitpoints = diceRoll(oMonster.hitDice, 6);
+    monsterCharacter.strength = diceRoll(oMonster.strengthDice, 6);
+    monsterCharacter.defense = diceRoll(oMonster.defenseDice, 6);
+    // Create encounter information in feedback text block
+    $('#feedback').text("You have encountered " + data.enemies[nMonsterIndex].monsterArticle + " " + data.enemies[nMonsterIndex].monsterName + "!");
   });
-  return sMonsterName;
 }
 
+/**
+// Function has been replaced
 // Create new opponent for playerCharacter to face against
 function createNewMonster(){
   monsterCharacter.fullName = monsterNameGenerator();
+  monsterNameGenerator();
   monsterCharacter.hitpoints = diceRoll(5, 6);
   monsterCharacter.maxhitpoints = 40;
   monsterCharacter.strength = diceRoll(3, 6);
   monsterCharacter.defense = diceRoll(3, 6);
-  // alert("You have encountered " + monsterCharacter.sArticle + " " + monsterCharacter.fullName + "!");
   $('#feedback').text("You have encounted " + monsterCharacter.sArticle + " "  + monsterCharacter.fullName + "!");
-}
+} */
 
 
 
@@ -184,7 +190,6 @@ function getIsDead(deadTarget) {
 
 // A full attack round
 function attackCycle(opponentOne, opponentTwo){
-  // alert("attackCycle() starting, opponentOne is " + opponentOne.fullName + " and opponentTwo is " + opponentTwo.fullName);
   // For feedback tracking purposes, we create two variables for recording damage
   var nPCDam = 0;
   var nMonDam = 0;
@@ -194,7 +199,6 @@ function attackCycle(opponentOne, opponentTwo){
   nPCDam = damageRoll;
   if(getIsDead(opponentTwo)){
     // If successfully killed
-    // alert("You have slain " + opponentTwo.fullName);
     // Feedback
     $('#feedback').text("You have damaged " + opponentTwo.fullName + " for " + nPCDam + " hitpoints, " + opponentTwo.fullName + " has been slain");
     // Make explore and rest buttons appear again, attack button disappear
@@ -217,7 +221,6 @@ function attackCycle(opponentOne, opponentTwo){
     $('#currentHealth').text("HP: " + nHitPoints);
     // Check if opponentTwo has killed opponentOne
     if(getIsDead(opponentOne)){
-      // alert(opponentTwo.fullName + " has killed you! GAME OVER");
       // Feedback
       $('#feedback').text("You have damaged " + opponentTwo.fullName + " for " + nPCDam + " hitpoints, " + opponentTwo.fullName + " has damaged " + opponentOne.fullName + " for " + nMonDam + " hitpoints. " + opponentTwo.fullName + " has killed you! GAME OVER");
       // Yer dead, can only start a new game, all other buttons disappear
