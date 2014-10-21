@@ -9,6 +9,8 @@ var sFeedback = "";
 
 var damageRoll = 0;
 
+var sJsonPath = "enemies-01.json";
+
 
 
 /** ===== SIMPLE FUNCTIONS USED EVERYWHERE ===== */
@@ -136,9 +138,24 @@ function monsterNameGenerate(){
   return sMonsterName;
 }
 
+// Random generation of monster from monster list in JSON file
+// JSON file location is defined above in global variables at top
+function monsterNameGenerator(){
+  var sMonsterName;
+  $.getJSON(sJsonPath, function(data){
+    var nMonsterListSize = data.enemies.length;
+    var nMonsterIndex = diceRoll(1, nMonsterListSize) - 1;
+    sMonsterName = data.enemies[nMonsterIndex].monsterName;
+    monsterCharacter.sArticle = data.enemies[nMonsterIndex].monsterArticle;
+    mainPic.src = data.enemies[nMonsterIndex].picSrc;
+    mainPic.alt = data.enemies[nMonsterIndex].picAlt;
+  });
+  return sMonsterName;
+}
+
 // Create new opponent for playerCharacter to face against
 function createNewMonster(){
-  monsterCharacter.fullName = monsterNameGenerate();
+  monsterCharacter.fullName = monsterNameGenerator();
   monsterCharacter.hitpoints = diceRoll(5, 6);
   monsterCharacter.maxhitpoints = 40;
   monsterCharacter.strength = diceRoll(3, 6);

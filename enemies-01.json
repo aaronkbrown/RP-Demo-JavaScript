@@ -1,0 +1,7 @@
+{"enemies":[
+  {"monsterName":"Goblin", "monsterArticle":"a", "picSrc":"images/goblin.jpg", "picAlt":"A picture of a goblin"},
+  {"monsterName":"Orc", "monsterArticle":"an", "picSrc":"images/orc.png", "picAlt":"A picture of an orc"},
+  {"monsterName":"Kobold", "monsterArticle":"a", "picSrc":"images/kobold.jpg", "picAlt":"A picture of a kobold"},
+  {"monsterName":"Gnoll", "monsterArticle":"a", "picSrc":"images/gnoll.jpg", "picAlt":"A picture of a gnoll"},
+  {"monsterName":"Ogre", "monsterArticle":"an", "picSrc":"images/ogre.jpg", "picAlt":"A picture of an ogre"}
+]}
