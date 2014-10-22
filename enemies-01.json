@@ -1,0 +1,7 @@
+{"enemies":[
+  {"monsterName":"Goblin", "monsterArticle":"a", "hitDice":5, "strengthDice":3, "defenseDice":3, "picSrc":"images/goblin.jpg", "picAlt":"A picture of a goblin"},
+  {"monsterName":"Orc", "monsterArticle":"an", "hitDice":5, "strengthDice":3, "defenseDice":3, "picSrc":"images/orc.png", "picAlt":"A picture of an orc"},
+  {"monsterName":"Kobold", "monsterArticle":"a", "hitDice":5, "strengthDice":3, "defenseDice":3, "picSrc":"images/kobold.jpg", "picAlt":"A picture of a kobold"},
+  {"monsterName":"Gnoll", "monsterArticle":"a", "hitDice":5, "strengthDice":3, "defenseDice":3, "picSrc":"images/gnoll.jpg", "picAlt":"A picture of a gnoll"},
+  {"monsterName":"Ogre", "monsterArticle":"an", "hitDice":5, "strengthDice":3, "defenseDice":3, "picSrc":"images/ogre.jpg", "picAlt":"A picture of an ogre"}
+]}
