@@ -11,6 +11,20 @@ var damageRoll = 0;
 
 var sJsonPath = "enemies-01.json";
 
+var enemyArray = [];
+
+/** Populate enemyArray[] with monster objects found in JSON file
+This is so we only have to make one single GET request to the server
+upon loading script rather than making repeated requests each time
+the player enters combat */
+$.getJSON(sJsonPath, function(data){
+  var nMonsterListSize = data.enemies.length;
+  // Loop through enemies array of monster objects in JSON file
+  for(i = 0; i < nMonsterListSize; i++){
+    enemyArray[i] = data.enemies[i];
+  }
+});
+
 
 
 /** ===== SIMPLE FUNCTIONS USED EVERYWHERE ===== */
@@ -134,27 +148,25 @@ monsterCharacter = new actor("", 0, 0, 0, 0);
   return sMonsterName;
 } */
 
-// Random generation of monster from monster list in JSON file
-// JSON file location is defined above in global variables at top
+// Random generation of monster from monster list in enemyArray that was
+// populated by JSON file at the top of the script
 function createNewMonster(){
-  $.getJSON(sJsonPath, function(data){
-    // Get size of enemies[] array in JSON file
-    var nMonsterListSize = data.enemies.length;
-    // Randomly pick monster entry in JSON file
-    var nMonsterIndex = diceRoll(1, nMonsterListSize) - 1;
-    // Save keystrokes
-    var oMonster = data.enemies[nMonsterIndex];
-    // Set monster object properties and image references
-    monsterCharacter.fullName = oMonster.monsterName;
-    monsterCharacter.sArticle = oMonster.monsterArticle;
-    mainPic.src = oMonster.picSrc;
-    mainPic.alt = oMonster.picAlt;
-    monsterCharacter.hitpoints = diceRoll(oMonster.hitDice, 6);
-    monsterCharacter.strength = diceRoll(oMonster.strengthDice, 6);
-    monsterCharacter.defense = diceRoll(oMonster.defenseDice, 6);
-    // Create encounter information in feedback text block
-    $('#feedback').text("You have encountered " + data.enemies[nMonsterIndex].monsterArticle + " " + data.enemies[nMonsterIndex].monsterName + "!");
-  });
+  // Get size of enemyArray[] array
+  var nMonsterListSize = enemyArray.length;
+  // Randomly pick monster entry in array
+  var nMonsterIndex = diceRoll(1, nMonsterListSize) - 1;
+  // Save keystrokes
+  var oMonster = enemyArray[nMonsterIndex];
+  // Set monster object properties and image references
+  monsterCharacter.fullName = oMonster.monsterName;
+  monsterCharacter.sArticle = oMonster.monsterArticle;
+  mainPic.src = oMonster.picSrc;
+  mainPic.alt = oMonster.picAlt;
+  monsterCharacter.hitpoints = diceRoll(oMonster.hitDice, 6);
+  monsterCharacter.strength = diceRoll(oMonster.strengthDice, 6);
+  monsterCharacter.defense = diceRoll(oMonster.defenseDice, 6);
+  // Create encounter information in feedback text block
+  $('#feedback').text("You have encountered " + oMonster.monsterArticle + " " + oMonster.monsterName + "!");
 }
 
 /**
