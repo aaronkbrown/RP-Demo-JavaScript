@@ -11,6 +11,20 @@ var damageRoll = 0;
 
 var sJsonPath = "enemies-01.json";
 
+var enemyArray = [];
+
+/** Populate enemyArray[] with monster objects found in JSON file
+This is so we only have to make one single GET request to the server
+upon loading script rather than making repeated requests each time
+the player enters combat */
+$.getJSON(sJsonPath, function(data){
+  var nMonsterListSize = data.enemies.length;
+  // Loop through enemies array of monster objects in JSON file
+  for(i = 0; i < nMonsterListSize; i++){
+    enemyArray[i] = data.enemies[i];
+  }
+});
+
 
 
 /** ===== SIMPLE FUNCTIONS USED EVERYWHERE ===== */
