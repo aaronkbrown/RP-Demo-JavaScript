@@ -13,6 +13,8 @@ var sJsonPath = "enemies-01.json";
 
 var enemyArray = [];
 
+var playerXP = 0;
+
 /** Populate enemyArray[] with monster objects found in JSON file
 This is so we only have to make one single GET request to the server
 upon loading script rather than making repeated requests each time
@@ -165,6 +167,7 @@ function createNewMonster(){
   monsterCharacter.hitpoints = diceRoll(oMonster.hitDice, 6);
   monsterCharacter.strength = diceRoll(oMonster.strengthDice, 6);
   monsterCharacter.defense = diceRoll(oMonster.defenseDice, 6);
+  monsterCharacter.xpValue = oMonster.xpValue;
   // Create encounter information in feedback text block
   $('#feedback').text("You have encountered " + oMonster.monsterArticle + " " + oMonster.monsterName + "!");
 }
@@ -219,6 +222,8 @@ function attackCycle(opponentOne, opponentTwo){
     buttonAttack.style.display = "none";
     // Update kill count global variable and notify player
     nKillCount++;
+    // Add experience points to player's total tally
+    playerXP = playerXP + opponentTwo.xpValue;
     //notifySpan("killCount", "Kills: " + nKillCount);
     $('#killCount').text("Kills: " + nKillCount);
     mainPic.src = "images/moor.jpg";
@@ -266,6 +271,7 @@ function startGame(){
   nKillCount = 0;
   $('#killCount').text("Kills: " + nKillCount);
   $('#feedback').text("-");
+  playerXP = 0;
 }
 
 // Create a monster to fight, enter combat
